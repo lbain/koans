@@ -14,6 +14,19 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  a, b, c = [a, b, c].sort
+  # check that sides are legal
+  begin
+    # no negative lengths
+    if a < 0
+      raise TriangleError.new("Triangles cannot have negative sides")
+    end
+    # two smallest sides add up to more than the largest
+    if a + b <= c
+      raise TriangleError.new("Sides are not long enough to make a triangle")
+    end
+  end
+  # triangle is legal, find it's type
   if a == b && b == c
     :equilateral
   elsif a == b || a == c || b == c

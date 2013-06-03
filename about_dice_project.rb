@@ -2,9 +2,21 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 # Implement a DiceSet Class here:
 #
-# class DiceSet
-#   code ...
-# end
+class DiceSet
+  attr_accessor :values
+
+  def roll(total_rolls)
+    @values = (1..total_rolls).map{ 1 + rand(6) }
+
+    # guess what? This stuff down here doesn't work!
+    # for i in 0..total_rolls
+    #   @values << 1 + rand(6)
+    # end
+    # I tried it this way, but @values wasn't defined.  What gives?
+    # Turns out blocks don't have access to variables outside of the block.
+    # http://stackoverflow.com/a/1654665/863846
+  end
+end
 
 class AboutDiceProject < Neo::Koan
   def test_can_create_a_dice_set
@@ -48,6 +60,7 @@ class AboutDiceProject < Neo::Koan
     # If the rolls are random, then it is possible (although not
     # likely) that two consecutive rolls are equal.  What would be a
     # better way to test this.
+    # stub out the random function
   end
 
   def test_you_can_roll_different_numbers_of_dice
